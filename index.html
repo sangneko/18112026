@@ -18,8 +18,8 @@
         <aside class="sidebar">
             <ul>
                 <li><a href="#" class="active">Hồ sơ nhân viên</a></li>
-                <li><a href="#">Bảng nhân viên</a></li>
-                <li><a href="#">Nhập thông tin</a></li>
+                <li><a href="#tableSection">Bảng nhân viên</a></li>
+                <li><a href="#formSection">Nhập thông tin</a></li>
             </ul>
         </aside>
 
@@ -27,7 +27,7 @@
         <main class="main-content">
 
             <!-- Bảng nhân viên -->
-            <section class="section">
+            <section class="section" id="tableSection">
                 <h2>BẢNG NHÂN VIÊN</h2>
                 <div class="table-responsive">
                     <table>
@@ -40,66 +40,39 @@
                                 <th>Vị trí</th>
                                 <th>Phòng ban</th>
                                 <th>Điện thoại</th>
+                                <th style="text-align: center;">Thao tác</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>NV01</td>
-                                <td>Nguyễn Thái Sang</td>
-                                <td>02/10/2005</td>
-                                <td>Nam</td>
-                                <td>Thực Tập Sinh</td>
-                                <td>Hành Chính Nhân Sự</td>
-                                <td>0902712130</td>
-                            </tr>
-                            <tr>
-                                <td>NV02</td>
-                                <td>Trần Thị Mai</td>
-                                <td>15/04/2001</td>
-                                <td>Nữ</td>
-                                <td>Chuyên viên</td>
-                                <td>Kế Toán</td>
-                                <td>0912345678</td>
-                            </tr>
-                            <tr>
-                                <td>NV03</td>
-                                <td>Lê Văn Hùng</td>
-                                <td>20/08/1999</td>
-                                <td>Nam</td>
-                                <td>Kỹ sư phần mềm</td>
-                                <td>Kỹ Thuật</td>
-                                <td>0987654321</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="employeeTableBody"></tbody>
                     </table>
                 </div>
             </section>
 
             <!-- Form nhập thông tin -->
-            <section class="section">
+            <section class="section" id="formSection">
                 <h2>FORM NHẬP THÔNG TIN</h2>
-                <form action="#" method="post">
+                <form id="employeeForm">
                     <div class="form-row">
                         <div class="form-group">
                             <label>Mã nhân viên:</label>
-                            <input type="text" placeholder="Nhập mã nhân viên">
+                            <input type="text" id="manv" placeholder="Nhập mã nhân viên" required>
                         </div>
                         <div class="form-group">
                             <label>Họ và tên:</label>
-                            <input type="text" placeholder="Nhập họ và tên">
+                            <input type="text" id="hoten" placeholder="Nhập họ và tên" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label>Ngày sinh:</label>
-                            <input type="date">
+                            <input type="date" id="ngaysinh">
                         </div>
                         <div class="form-group">
                             <label>Giới tính:</label>
-                            <select>
-                                <option>Nam</option>
-                                <option>Nữ</option>
+                            <select id="gioitinh">
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
                             </select>
                         </div>
                     </div>
@@ -107,22 +80,18 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Vị trí:</label>
-                            <input type="text" placeholder="Nhập vị trí">
+                            <input type="text" id="vitri" placeholder="Nhập vị trí">
                         </div>
                         <div class="form-group">
                             <label>Phòng ban:</label>
-                            <input type="text" placeholder="Nhập phòng ban">
+                            <input type="text" id="phongban" placeholder="Nhập phòng ban">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label>Điện thoại:</label>
-                            <input type="tel" placeholder="Nhập số điện thoại">
-                        </div>
-                        <div class="form-group">
-                            <label>Email:</label>
-                            <input type="email" placeholder="Nhập địa chỉ email">
+                            <input type="tel" id="dienthoai" placeholder="Nhập số điện thoại" required>
                         </div>
                     </div>
 
@@ -136,5 +105,7 @@
         </main>
     </div>
 
+    <!-- Javascript -->
+    <script src="js/main.js"></script>
 </body>
 </html>
