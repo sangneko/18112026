@@ -121,6 +121,21 @@ table tr:hover {
     background-color: #f1f7ff;
 }
 
+.btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
 /* Form nhập thông tin */
 .form-row {
     display: flex;
