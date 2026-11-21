@@ -7,7 +7,7 @@ const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
 
-// Anh dai dien mac dinh chuan Base64 (an toan tuyet doi, khong loi HTML)
+// Anh dai dien mac dinh chuan Base64 
 const MALE_AVATAR = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMzIiIGZpbGw9IiNkYmVhZmUiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjI0IiByPSIxMSIgZmlsbD0iIzI1NjNlYiIvPjxwYXRoIGQ9Ik0xNiA1NGMwLTguODM3IDcuMTYzLTE2IDE2LTE2czE2IDcuMTYzIDE2IDE2IiBmaWxsPSIjMjU2M2ViIi8+PC9zdmc+';
 const FEMALE_AVATAR = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMzIiIGZpbGw9IiNmY2U3ZjMiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjI0IiByPSIxMSIgZmlsbD0iI2RiMjc3NyIvPjxwYXRoIGQ9Ik0xNiA1NGMwLTguODM3IDcuMTYzLTE2IDE2LTE2czE2IDcuMTYzIDE2IDE2IiBmaWxsPSIjZGIyNzc3Ii8+PC9zdmc+';
 
