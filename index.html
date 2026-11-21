@@ -14,95 +14,93 @@
     </header>
 
     <div class="container">
-        <!-- Sidebar -->
+        <!-- Sidebar Menu -->
         <aside class="sidebar">
             <ul>
-                <li><a href="#" class="active">Hồ sơ nhân viên</a></li>
-                <li><a href="#tableSection">Bảng nhân viên</a></li>
-                <li><a href="#formSection">Nhập thông tin</a></li>
+                <li><a href="index.html" class="active">Hồ sơ nhân viên</a></li>
+                <li><a href="table.html">Bảng nhân viên</a></li>
+                <li><a href="form.html">Nhập thông tin</a></li>
             </ul>
         </aside>
 
         <!-- Main Content -->
         <main class="main-content">
-
-            <!-- Bảng nhân viên -->
-            <section class="section" id="tableSection">
-                <h2>BẢNG NHÂN VIÊN</h2>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Mã nhân viên</th>
-                                <th>Họ và tên</th>
-                                <th>Ngày sinh</th>
-                                <th>Giới tính</th>
-                                <th>Vị trí</th>
-                                <th>Phòng ban</th>
-                                <th>Điện thoại</th>
-                                <th style="text-align: center;">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody id="employeeTableBody"></tbody>
-                    </table>
+            <div class="profile-detail-card">
+                <!-- Header của Hồ sơ -->
+                <div class="profile-detail-header">
+                    <div class="profile-detail-avatar-wrap">
+                        <img id="detailAvatar" src="" alt="Ảnh đại diện" class="profile-detail-avatar" title="Nhấn để phóng to ảnh">
+                        <div class="avatar-upload-overlay" id="changeAvatarBtn" title="Đổi ảnh đại diện">
+                            <span>Thay ảnh</span>
+                            <input type="file" id="profileFileInput" accept="image/jpeg,image/png,image/gif,image/webp" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="profile-detail-intro">
+                        <div class="profile-title-row">
+                            <h2 id="detailHoTen">Nguyễn Thái Sang</h2>
+                            <span class="profile-badge-code" id="detailMaNV">NV01</span>
+                            <span class="profile-badge-status">Nhân viên chính thức</span>
+                        </div>
+                        <p class="profile-detail-role" id="detailViTri">Thực Tập Sinh</p>
+                        <p class="profile-detail-dept" id="detailPhongBan">Hành Chính Nhân Sự</p>
+                        <div class="profile-header-actions">
+                            <a href="#" id="editProfileBtn" class="btn btn-primary btn-sm">Chỉnh sửa thông tin</a>
+                            <a href="table.html" class="btn btn-secondary btn-sm">Xem bảng nhân viên</a>
+                        </div>
+                    </div>
                 </div>
-            </section>
 
-            <!-- Form nhập thông tin -->
-            <section class="section" id="formSection">
-                <h2>FORM NHẬP THÔNG TIN</h2>
-                <form id="employeeForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Mã nhân viên:</label>
-                            <input type="text" id="manv" placeholder="Nhập mã nhân viên" required>
+                <!-- Thông báo cập nhật ảnh -->
+                <div id="profileImageMsg" class="file-note" style="margin-top: 8px; text-align: left; display: none;"></div>
+
+                <!-- Toàn bộ các thông tin khớp 100% với Form nhập liệu -->
+                <div class="profile-info-block full-width" style="margin-top: 20px;">
+                    <div class="block-title">
+                        <h3>THÔNG TIN HỒ SƠ CHI TIẾT</h3>
+                    </div>
+                    <div class="block-content">
+                        <div class="info-row">
+                            <span class="info-label">Mã nhân viên:</span>
+                            <span class="info-value" id="infoMaNV">NV01</span>
                         </div>
-                        <div class="form-group">
-                            <label>Họ và tên:</label>
-                            <input type="text" id="hoten" placeholder="Nhập họ và tên" required>
+                        <div class="info-row">
+                            <span class="info-label">Họ và tên:</span>
+                            <span class="info-value" id="infoHoTen">Nguyễn Thái Sang</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Ngày sinh:</span>
+                            <span class="info-value" id="infoNgaySinh">02/10/2005</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Giới tính:</span>
+                            <span class="info-value" id="infoGioiTinh">Nam</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Vị trí công việc:</span>
+                            <span class="info-value" id="infoViTri">Thực Tập Sinh</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Phòng ban:</span>
+                            <span class="info-value" id="infoPhongBan">Hành Chính Nhân Sự</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Số điện thoại:</span>
+                            <span class="info-value" id="infoDienThoai">0902712130</span>
                         </div>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Ngày sinh:</label>
-                            <input type="date" id="ngaysinh">
-                        </div>
-                        <div class="form-group">
-                            <label>Giới tính:</label>
-                            <select id="gioitinh">
-                                <option value="Nam">Nam</option>
-                                <option value="Nữ">Nữ</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Vị trí:</label>
-                            <input type="text" id="vitri" placeholder="Nhập vị trí">
-                        </div>
-                        <div class="form-group">
-                            <label>Phòng ban:</label>
-                            <input type="text" id="phongban" placeholder="Nhập phòng ban">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Điện thoại:</label>
-                            <input type="tel" id="dienthoai" placeholder="Nhập số điện thoại" required>
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Lưu thông tin</button>
-                        <button type="reset" class="btn btn-secondary">Nhập lại</button>
-                    </div>
-                </form>
-            </section>
-
+                </div>
+            </div>
         </main>
+    </div>
+
+    <!-- Modal xem ảnh lớn -->
+    <div id="imageModal" class="image-modal" style="display: none;">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button type="button" class="modal-close" id="modalClose" aria-label="Đóng">&times;</button>
+            <img id="modalImg" src="" alt="Ảnh nhân viên">
+            <div id="modalCaption" class="modal-caption"></div>
+        </div>
     </div>
 
     <!-- Javascript -->

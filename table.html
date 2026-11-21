@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Nhân Viên</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>HỒ SƠ NHÂN VIÊN</h1>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar Menu Điều Hướng -->
+        <aside class="sidebar">
+            <ul>
+                <li><a href="index.html">Hồ sơ nhân viên</a></li>
+                <li><a href="table.html" class="active">Bảng nhân viên</a></li>
+                <li><a href="form.html">Nhập thông tin</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content (Trang 2: Bảng nhân viên) -->
+        <main class="main-content">
+            <section class="section">
+                <div class="section-toolbar">
+                    <h2>BẢNG NHÂN VIÊN</h2>
+                    <a href="form.html" class="btn btn-primary btn-sm">+ Thêm nhân viên mới</a>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="text-align: center; width: 65px;">Ảnh</th>
+                                <th>Mã nhân viên</th>
+                                <th>Họ và tên</th>
+                                <th>Ngày sinh</th>
+                                <th>Giới tính</th>
+                                <th>Vị trí</th>
+                                <th>Phòng ban</th>
+                                <th>Điện thoại</th>
+                                <th style="text-align: center; width: 130px;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeeTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal xem ảnh lớn -->
+    <div id="imageModal" class="image-modal" style="display: none;">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button type="button" class="modal-close" id="modalClose" aria-label="Đóng">&times;</button>
+            <img id="modalImg" src="" alt="Ảnh nhân viên">
+            <div id="modalCaption" class="modal-caption"></div>
+        </div>
+    </div>
+
+    <!-- Javascript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
