@@ -3,940 +3,217 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản Lý Nhân Viên</title>
-  <style>
-    /* Bien mau sac va giao dien chung */
-    :root {
-      --bg: #f4f6f9;
-      --surface: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --danger: #dc2626;
-      --success: #16a34a;
-      --warning: #d97706;
-      --radius: 10px;
-      --shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      padding: 24px 16px;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    header h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-    }
-
-    header p {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      background: var(--surface);
-      padding: 18px 20px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-    }
-
-    .stat-card .label {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .stat-card .value {
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      padding: 20px;
-      margin-bottom: 24px;
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      flex: 1;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="number"],
-    input[type="date"],
-    select,
-    textarea {
-      padding: 9px 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 0.92rem;
-      font-family: inherit;
-      color: var(--text);
-      background: #fff;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--primary);
-    }
-
-    .search-input {
-      min-width: 240px;
-      flex: 1;
-      max-width: 340px;
-    }
-
-    button {
-      padding: 9px 16px;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s, opacity 0.15s;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-hover);
-    }
-
-    .btn-secondary {
-      background: #e2e8f0;
-      color: var(--text);
-    }
-
-    .btn-secondary:hover {
-      background: #cbd5e1;
-    }
-
-    .btn-sm {
-      padding: 5px 10px;
-      font-size: 0.82rem;
-    }
-
-    .btn-edit {
-      background: #eff6ff;
-      color: var(--primary);
-    }
-
-    .btn-edit:hover {
-      background: #dbeafe;
-    }
-
-    .btn-delete {
-      background: #fef2f2;
-      color: var(--danger);
-    }
-
-    .btn-delete:hover {
-      background: #fee2e2;
-    }
-
-    .name-link {
-      background: none;
-      border: none;
-      padding: 0;
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 0.92rem;
-      cursor: pointer;
-      text-align: left;
-    }
-
-    .name-link:hover {
-      text-decoration: underline;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.92rem;
-    }
-
-    th,
-    td {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap;
-    }
-
-    th {
-      background: #f8fafc;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    tbody tr:hover {
-      background: #f8fafc;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-
-    .badge-active {
-      background: #dcfce7;
-      color: var(--success);
-    }
-
-    .badge-leave {
-      background: #fef3c7;
-      color: var(--warning);
-    }
-
-    .badge-resigned {
-      background: #fee2e2;
-      color: var(--danger);
-    }
-
-    .actions {
-      display: flex;
-      gap: 6px;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 36px 16px;
-      color: var(--muted);
-    }
-
-    /* Modal */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.45);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 100;
-    }
-
-    .modal-backdrop.open {
-      display: flex;
-    }
-
-    .modal {
-      background: var(--surface);
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 620px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 24px;
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .modal-header h2 {
-      font-size: 1.2rem;
-    }
-
-    .close-btn {
-      background: transparent;
-      color: var(--muted);
-      font-size: 1.4rem;
-      padding: 4px 8px;
-      line-height: 1;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .form-group.full {
-      grid-column: 1 / -1;
-    }
-
-    .form-group label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 20px;
-      padding-top: 14px;
-      border-top: 1px solid var(--border);
-    }
-
-    /* Detail Modal */
-    .detail-section {
-      margin-bottom: 18px;
-    }
-
-    .detail-section h3 {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-
-    .detail-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px 16px;
-      background: #f8fafc;
-      padding: 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-
-    .detail-item .d-label {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .detail-item .d-value {
-      font-size: 0.94rem;
-      font-weight: 600;
-      margin-top: 2px;
-    }
-
-    .detail-item.full {
-      grid-column: 1 / -1;
-    }
-
-    @media (max-width: 600px) {
-      .form-grid,
-      .detail-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <title>Quan Ly Nhan Vien</title>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div>
-        <h1>Quản Lý Nhân Viên</h1>
-        <p>Bấm vào tên nhân viên để xem toàn bộ thông tin chi tiết</p>
-      </div>
-      <button class="btn-primary" id="openAddModalBtn">+ Thêm nhân viên</button>
-    </header>
+  <header>
+    <h1>Quan Ly Nhan Vien</h1>
+    <p>Bam vao ten nhan vien de xem toan bo thong tin chi tiet.</p>
+  </header>
 
+  <main>
     <!-- Thong ke nhanh -->
-    <section class="stats">
-      <div class="stat-card">
-        <div class="label">Tổng nhân viên</div>
-        <div class="value" id="statTotal">0</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Đang làm việc</div>
-        <div class="value" id="statActive">0</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Nghỉ phép</div>
-        <div class="value" id="statLeave">0</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Tổng quỹ lương</div>
-        <div class="value" id="statSalary">0 ₫</div>
-      </div>
+    <section>
+      <h2>Thong ke</h2>
+      <ul>
+        <li>Tong nhan vien: 1</li>
+        <li>Dang lam viec: 1</li>
+        <li>Nghi phep: 0</li>
+        <li>Tong quy luong: 0 d</li>
+      </ul>
     </section>
 
-    <!-- Bo loc tim kiem va bang danh sach -->
-    <section class="card">
-      <div class="toolbar">
-        <div class="filters">
-          <input
-            type="text"
-            id="searchInput"
-            class="search-input"
-            placeholder="Tìm theo tên, mã NV, chức vụ..."
-          />
-          <select id="deptFilter">
-            <option value="">Tất cả phòng ban</option>
-            <option value="Kỹ thuật">Kỹ thuật</option>
-            <option value="Kinh doanh">Kinh doanh</option>
-            <option value="Nhân sự">Nhân sự</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Kế toán">Kế toán</option>
-          </select>
-          <select id="statusFilter">
-            <option value="">Tất cả trạng thái</option>
-            <option value="Đang làm việc">Đang làm việc</option>
-            <option value="Nghỉ phép">Nghỉ phép</option>
-            <option value="Đã nghỉ">Đã nghỉ</option>
-          </select>
-        </div>
-      </div>
+    <hr />
 
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Mã NV</th>
-              <th>Họ và tên</th>
-              <th>Phòng ban</th>
-              <th>Chức vụ</th>
-              <th>Trạng thái</th>
-              <th>Thao tác</th>
-            </tr>
-          </thead>
-          <tbody id="employeeTableBody"></tbody>
-        </table>
-        <div class="empty-state" id="emptyState" style="display: none;">
-          Không tìm thấy nhân viên nào phù hợp.
-        </div>
-      </div>
-    </section>
-  </div>
+    <!-- Bo loc tim kiem -->
+    <section>
+      <h2>Tim kiem &amp; Loc</h2>
+      <form>
+        <label for="search">Tim kiem:</label>
+        <input type="text" id="search" name="search" placeholder="Nhap ten, ma NV, chuc vu..." />
 
-  <!-- Modal Xem Chi Tiết -->
-  <div class="modal-backdrop" id="detailModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2 id="detailTitle">Hồ sơ nhân viên</h2>
-        <button class="close-btn" id="closeDetailBtn" aria-label="Đóng">&times;</button>
-      </div>
-      <div id="detailContent"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn-secondary" id="closeDetailFooterBtn">Đóng</button>
-        <button type="button" class="btn-primary" id="editFromDetailBtn">Chỉnh sửa</button>
-      </div>
-    </div>
-  </div>
+        <label for="deptFilter">Phong ban:</label>
+        <select id="deptFilter" name="deptFilter">
+          <option value="">Tat ca phong ban</option>
+          <option value="Ky thuat">Ky thuat</option>
+          <option value="Kinh doanh">Kinh doanh</option>
+          <option value="Nhan su">Nhan su</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Ke toan">Ke toan</option>
+        </select>
 
-  <!-- Modal Thêm / Sửa -->
-  <div class="modal-backdrop" id="employeeModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2 id="modalTitle">Thêm nhân viên mới</h2>
-        <button class="close-btn" id="closeModalBtn" aria-label="Đóng">&times;</button>
-      </div>
-      <form id="employeeForm">
-        <input type="hidden" id="empId" />
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="empCode">Mã nhân viên *</label>
-            <input type="text" id="empCode" required placeholder="VD: NV001" />
-          </div>
-          <div class="form-group">
-            <label for="empName">Họ và tên *</label>
-            <input type="text" id="empName" required placeholder="Nguyễn Văn A" />
-          </div>
-          <div class="form-group">
-            <label for="empGender">Giới tính</label>
-            <select id="empGender">
-              <option value="Nam">Nam</option>
-              <option value="Nữ">Nữ</option>
-              <option value="Khác">Khác</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="empDob">Ngày sinh</label>
-            <input type="date" id="empDob" />
-          </div>
-          <div class="form-group">
-            <label for="empPhone">Số điện thoại</label>
-            <input type="tel" id="empPhone" placeholder="0901234567" />
-          </div>
-          <div class="form-group">
-            <label for="empEmail">Email *</label>
-            <input type="email" id="empEmail" required placeholder="a.nguyen@company.vn" />
-          </div>
-          <div class="form-group full">
-            <label for="empAddress">Địa chỉ</label>
-            <input type="text" id="empAddress" placeholder="Số nhà, đường, quận/huyện, tỉnh/TP" />
-          </div>
-          <div class="form-group">
-            <label for="empDept">Phòng ban *</label>
-            <select id="empDept" required>
-              <option value="Kỹ thuật">Kỹ thuật</option>
-              <option value="Kinh doanh">Kinh doanh</option>
-              <option value="Nhân sự">Nhân sự</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Kế toán">Kế toán</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="empRole">Chức vụ *</label>
-            <input type="text" id="empRole" required placeholder="VD: Lập trình viên" />
-          </div>
-          <div class="form-group">
-            <label for="empJoinDate">Ngày vào làm</label>
-            <input type="date" id="empJoinDate" />
-          </div>
-          <div class="form-group">
-            <label for="empContract">Loại hợp đồng</label>
-            <select id="empContract">
-              <option value="Chính thức">Chính thức</option>
-              <option value="Thử việc">Thử việc</option>
-              <option value="Cộng tác viên">Cộng tác viên</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="empSalary">Lương cơ bản (VNĐ) *</label>
-            <input type="number" id="empSalary" required min="0" step="100000" placeholder="15000000" />
-          </div>
-          <div class="form-group">
-            <label for="empAllowance">Phụ cấp (VNĐ)</label>
-            <input type="number" id="empAllowance" min="0" step="100000" placeholder="1000000" value="0" />
-          </div>
-          <div class="form-group">
-            <label for="empLeaveDays">Ngày phép còn lại</label>
-            <input type="number" id="empLeaveDays" min="0" max="30" value="12" />
-          </div>
-          <div class="form-group">
-            <label for="empStatus">Trạng thái *</label>
-            <select id="empStatus" required>
-              <option value="Đang làm việc">Đang làm việc</option>
-              <option value="Nghỉ phép">Nghỉ phép</option>
-              <option value="Đã nghỉ">Đã nghỉ</option>
-            </select>
-          </div>
-          <div class="form-group full">
-            <label for="empNote">Ghi chú / Đánh giá</label>
-            <textarea id="empNote" rows="2" placeholder="Ghi chú thêm về KPI, kỹ năng..."></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn-secondary" id="cancelModalBtn">Hủy</button>
-          <button type="submit" class="btn-primary">Lưu thông tin</button>
-        </div>
+        <label for="statusFilter">Trang thai:</label>
+        <select id="statusFilter" name="statusFilter">
+          <option value="">Tat ca trang thai</option>
+          <option value="Dang lam viec">Dang lam viec</option>
+          <option value="Nghi phep">Nghi phep</option>
+          <option value="Da nghi">Da nghi</option>
+        </select>
+
+        <button type="submit">Loc</button>
+        <button type="reset">Dat lai</button>
       </form>
-    </div>
-  </div>
+    </section>
 
-  <script>
-    // Khoa luu du lieu trong localStorage
-    const STORAGE_KEY = "employees_data_v2";
+    <hr />
 
-    // Du lieu mac dinh ban dau
-    const defaultEmployees = [
-      {
-        id: "1",
-        code: "NV001",
-        name: "Nguyễn Thái Sang",
-        gender: "Nam",
-        dob: "2005-10-02",
-        phone: "0902",
-        email: "nguyenthaisang2005@gmail.com",
-        address: "47/68.46/4,LT,HCM",
-        dept: "Nhân sự",
-        role: "Thực Tập Sinh",
-        joinDate: "2026-11-16",
-        contract: "Cộng tác viên",
-        salary: 0,
-        allowance: 0,
-        leaveDays: 0,
-        status: "Đang làm việc",
-        note: "Thực tập sinh"
-      }
-    ];
+    <!-- Bang danh sach nhan vien -->
+    <section>
+      <h2>Danh sach nhan vien</h2>
+      <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Ma NV</th>
+            <th>Ho va ten (Bam de xem chi tiet)</th>
+            <th>Phong ban</th>
+            <th>Chuc vu</th>
+            <th>Trang thai</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NV001</td>
+            <td>
+              <details>
+                <summary><strong>Nguyen Thai Sang</strong></summary>
+                <div>
+                  <p><strong>Thong tin ca nhan:</strong></p>
+                  <ul>
+                    <li>Gioi tinh: Nam</li>
+                    <li>Ngay sinh: 02/10/2005</li>
+                    <li>So dien thoai: 0902</li>
+                    <li>Email: nguyenthaisang2005@gmail.com</li>
+                    <li>Dia chi: 47/68.46/4,LT,HCM</li>
+                  </ul>
+                  <p><strong>Cong viec &amp; Hop dong:</strong></p>
+                  <ul>
+                    <li>Phong ban: Nhan su</li>
+                    <li>Chuc vu: Thuc Tap Sinh</li>
+                    <li>Ngay vao lam: 16/11/2026</li>
+                    <li>Loai hop dong: Cong tac vien</li>
+                    <li>Trang thai: Dang lam viec</li>
+                    <li>Ngay phep con lai: 0 ngay</li>
+                  </ul>
+                  <p><strong>Luong &amp; Ghi chu:</strong></p>
+                  <ul>
+                    <li>Luong co ban: 0 d</li>
+                    <li>Phu cap: 0 d</li>
+                    <li>Tong thu nhap: 0 d</li>
+                    <li>Ghi chu: Thuc tap sinh</li>
+                  </ul>
+                </div>
+              </details>
+            </td>
+            <td>Nhan su</td>
+            <td>Thuc Tap Sinh</td>
+            <td>Dang lam viec</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-    let employees = loadEmployees();
-    let currentDetailId = null;
+    <hr />
 
-    const tableBody = document.getElementById("employeeTableBody");
-    const emptyState = document.getElementById("emptyState");
-    const searchInput = document.getElementById("searchInput");
-    const deptFilter = document.getElementById("deptFilter");
-    const statusFilter = document.getElementById("statusFilter");
+    <!-- Form them nhan vien moi -->
+    <section>
+      <h2>Them nhan vien moi</h2>
+      <form>
+        <fieldset>
+          <legend>Thong tin co ban</legend>
+          <p>
+            <label for="empCode">Ma nhan vien (*):</label><br />
+            <input type="text" id="empCode" name="empCode" required placeholder="VD: NV002" />
+          </p>
+          <p>
+            <label for="empName">Ho va ten (*):</label><br />
+            <input type="text" id="empName" name="empName" required placeholder="Nguyen Van A" />
+          </p>
+          <p>
+            <label for="empGender">Gioi tinh:</label><br />
+            <select id="empGender" name="empGender">
+              <option value="Nam">Nam</option>
+              <option value="Nu">Nu</option>
+              <option value="Khac">Khac</option>
+            </select>
+          </p>
+          <p>
+            <label for="empDob">Ngay sinh:</label><br />
+            <input type="date" id="empDob" name="empDob" />
+          </p>
+          <p>
+            <label for="empPhone">So dien thoai:</label><br />
+            <input type="tel" id="empPhone" name="empPhone" placeholder="0901234567" />
+          </p>
+          <p>
+            <label for="empEmail">Email (*):</label><br />
+            <input type="email" id="empEmail" name="empEmail" required placeholder="a.nguyen@company.vn" />
+          </p>
+          <p>
+            <label for="empAddress">Dia chi:</label><br />
+            <input type="text" id="empAddress" name="empAddress" placeholder="So nha, duong, quan/huyen, tinh/TP" />
+          </p>
+        </fieldset>
 
-    const modal = document.getElementById("employeeModal");
-    const modalTitle = document.getElementById("modalTitle");
-    const form = document.getElementById("employeeForm");
+        <fieldset>
+          <legend>Cong viec &amp; Luong</legend>
+          <p>
+            <label for="empDept">Phong ban (*):</label><br />
+            <select id="empDept" name="empDept" required>
+              <option value="Ky thuat">Ky thuat</option>
+              <option value="Kinh doanh">Kinh doanh</option>
+              <option value="Nhan su">Nhan su</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Ke toan">Ke toan</option>
+            </select>
+          </p>
+          <p>
+            <label for="empRole">Chuc vu (*):</label><br />
+            <input type="text" id="empRole" name="empRole" required placeholder="VD: Lap trinh vien" />
+          </p>
+          <p>
+            <label for="empJoinDate">Ngay vao lam:</label><br />
+            <input type="date" id="empJoinDate" name="empJoinDate" />
+          </p>
+          <p>
+            <label for="empContract">Loai hop dong:</label><br />
+            <select id="empContract" name="empContract">
+              <option value="Chinh thuc">Chinh thuc</option>
+              <option value="Thu viec">Thu viec</option>
+              <option value="Cong tac vien">Cong tac vien</option>
+            </select>
+          </p>
+          <p>
+            <label for="empSalary">Luong co ban (VND) (*):</label><br />
+            <input type="number" id="empSalary" name="empSalary" required min="0" step="100000" placeholder="15000000" />
+          </p>
+          <p>
+            <label for="empAllowance">Phu cap (VND):</label><br />
+            <input type="number" id="empAllowance" name="empAllowance" min="0" step="100000" value="0" />
+          </p>
+          <p>
+            <label for="empLeaveDays">Ngay phep con lai:</label><br />
+            <input type="number" id="empLeaveDays" name="empLeaveDays" min="0" max="30" value="12" />
+          </p>
+          <p>
+            <label for="empStatus">Trang thai (*):</label><br />
+            <select id="empStatus" name="empStatus" required>
+              <option value="Dang lam viec">Dang lam viec</option>
+              <option value="Nghi phep">Nghi phep</option>
+              <option value="Da nghi">Da nghi</option>
+            </select>
+          </p>
+          <p>
+            <label for="empNote">Ghi chu / Danh gia:</label><br />
+            <textarea id="empNote" name="empNote" rows="3" cols="40" placeholder="Ghi chu them..."></textarea>
+          </p>
+        </fieldset>
 
-    const detailModal = document.getElementById("detailModal");
-    const detailTitle = document.getElementById("detailTitle");
-    const detailContent = document.getElementById("detailContent");
-
-    // Doc danh sach nhan vien tu localStorage (neu chua co thi dung du lieu mau)
-    function loadEmployees() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : [...defaultEmployees];
-      } catch {
-        return [...defaultEmployees];
-      }
-    }
-
-    // Luu danh sach nhan vien vao localStorage
-    function saveEmployees() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(employees));
-    }
-
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-      }).format(amount || 0);
-    }
-
-    function formatDate(dateStr) {
-      if (!dateStr) return "—";
-      const [y, m, d] = dateStr.split("-");
-      return y && m && d ? `${d}/${m}/${y}` : dateStr;
-    }
-
-    function getStatusBadgeClass(status) {
-      if (status === "Đang làm việc") return "badge-active";
-      if (status === "Nghỉ phép") return "badge-leave";
-      return "badge-resigned";
-    }
-
-    function escapeHtml(str) {
-      return String(str ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-    }
-
-    // Cap nhat cac the thong ke o dau trang
-    function updateStats() {
-      document.getElementById("statTotal").textContent = employees.length;
-      document.getElementById("statActive").textContent = employees.filter(
-        (e) => e.status === "Đang làm việc"
-      ).length;
-      document.getElementById("statLeave").textContent = employees.filter(
-        (e) => e.status === "Nghỉ phép"
-      ).length;
-      const totalSalary = employees
-        .filter((e) => e.status !== "Đã nghỉ")
-        .reduce((sum, e) => sum + Number(e.salary || 0) + Number(e.allowance || 0), 0);
-      document.getElementById("statSalary").textContent = formatCurrency(totalSalary);
-    }
-
-    // Loc va hien thi danh sach nhan vien ra bang
-    function renderTable() {
-      const query = searchInput.value.trim().toLowerCase();
-      const dept = deptFilter.value;
-      const status = statusFilter.value;
-
-      const filtered = employees.filter((emp) => {
-        const matchQuery =
-          !query ||
-          emp.name.toLowerCase().includes(query) ||
-          emp.code.toLowerCase().includes(query) ||
-          emp.role.toLowerCase().includes(query);
-        const matchDept = !dept || emp.dept === dept;
-        const matchStatus = !status || emp.status === status;
-        return matchQuery && matchDept && matchStatus;
-      });
-
-      tableBody.innerHTML = "";
-      emptyState.style.display = filtered.length ? "none" : "block";
-
-      filtered.forEach((emp) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td><strong>${escapeHtml(emp.code)}</strong></td>
-          <td>
-            <button class="name-link" onclick="viewEmployee('${emp.id}')">
-              ${escapeHtml(emp.name)}
-            </button>
-          </td>
-          <td>${escapeHtml(emp.dept)}</td>
-          <td>${escapeHtml(emp.role)}</td>
-          <td><span class="badge ${getStatusBadgeClass(emp.status)}">${escapeHtml(emp.status)}</span></td>
-          <td>
-            <div class="actions">
-              <button class="btn-sm btn-edit" onclick="editEmployee('${emp.id}')">Sửa</button>
-              <button class="btn-sm btn-delete" onclick="deleteEmployee('${emp.id}')">Xóa</button>
-            </div>
-          </td>
-        `;
-        tableBody.appendChild(tr);
-      });
-
-      updateStats();
-    }
-
-    // Mo modal xem toan bo thong tin chi tiet cua nhan vien
-    window.viewEmployee = function (id) {
-      const emp = employees.find((e) => e.id === id);
-      if (!emp) return;
-      currentDetailId = id;
-      detailTitle.textContent = `${emp.name} (${emp.code})`;
-
-      const totalIncome = Number(emp.salary || 0) + Number(emp.allowance || 0);
-
-      detailContent.innerHTML = `
-        <div class="detail-section">
-          <h3>Thông tin cá nhân</h3>
-          <div class="detail-grid">
-            <div class="detail-item">
-              <div class="d-label">Giới tính</div>
-              <div class="d-value">${escapeHtml(emp.gender || "—")}</div>
-            </div>
-            <div class="detail-item">
-              <div class="d-label">Ngày sinh</div>
-              <div class="d-value">${formatDate(emp.dob)}</div>
-            </div>
-            <div class="detail-item">
-              <div class="d-label">Số điện thoại</div>
-              <div class="d-value">${escapeHtml(emp.phone || "—")}</div>
-            </div>
-            <div class="detail-item">
-              <div class="d-label">Email</div>
-              <div class="d-value">${escapeHtml(emp.email || "—")}</div>
-            </div>
-            <div class="detail-item full">
-              <div class="d-label">Địa chỉ</div>
-              <div class="d-value">${escapeHtml(emp.address || "—")}</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="detail-section">
-          <h3>Công việc & Hợp đồng</h3>
-          <div class="detail-grid">
-            <div class="detail-item">
-              <div class="d-label">Phòng ban</div>
-              <div class="d-value">${escapeHtml(emp.dept)}</div>
-            </div>
-            <div class="detail-item">
-              <div class="d-label">Chức vụ</div>
-              <div class="d-value">${escapeHtml(emp.role)}</div>
-            </div>
-            <div class="detail-item">
-              <div class="d-label">Ngày vào làm</div>
-              <div class="d-value">${formatDate(emp.joinDate)}</div>
-            </div>
-            <div class="detail-item">
-              <div class="d-label">Loại hợp đồng</div>
-              <div class="d-value">${escapeHtml(emp.contract || "—")}</div>
-            </div>
-            <div class="detail-item">
-              <div class="d-label">Trạng thái</div>
-              <div class="d-value">
-                <span class="badge ${getStatusBadgeClass(emp.status)}">${escapeHtml(emp.status)}</span>
-              </div>
-            </div>
-            <div class="detail-item">
-              <div class="d-label">Ngày phép còn lại</div>
-              <div class="d-value">${emp.leaveDays ?? 0} ngày</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="detail-section">
-          <h3>Lương & Ghi chú</h3>
-          <div class="detail-grid">
-            <div class="detail-item">
-              <div class="d-label">Lương cơ bản</div>
-              <div class="d-value">${formatCurrency(emp.salary)}</div>
-            </div>
-            <div class="detail-item">
-              <div class="d-label">Phụ cấp</div>
-              <div class="d-value">${formatCurrency(emp.allowance)}</div>
-            </div>
-            <div class="detail-item full">
-              <div class="d-label">Tổng thu nhập</div>
-              <div class="d-value" style="color: var(--primary);">${formatCurrency(totalIncome)}</div>
-            </div>
-            <div class="detail-item full">
-              <div class="d-label">Ghi chú / Đánh giá</div>
-              <div class="d-value" style="font-weight: 400;">${escapeHtml(emp.note || "Không có ghi chú.")}</div>
-            </div>
-          </div>
-        </div>
-      `;
-
-      detailModal.classList.add("open");
-    };
-
-    function closeDetailModal() {
-      detailModal.classList.remove("open");
-      currentDetailId = null;
-    }
-
-    function openModal(isEdit = false) {
-      modalTitle.textContent = isEdit ? "Cập nhật nhân viên" : "Thêm nhân viên mới";
-      modal.classList.add("open");
-    }
-
-    function closeModal() {
-      modal.classList.remove("open");
-      form.reset();
-      document.getElementById("empId").value = "";
-    }
-
-    window.editEmployee = function (id) {
-      const emp = employees.find((e) => e.id === id);
-      if (!emp) return;
-      document.getElementById("empId").value = emp.id;
-      document.getElementById("empCode").value = emp.code;
-      document.getElementById("empName").value = emp.name;
-      document.getElementById("empGender").value = emp.gender || "Nam";
-      document.getElementById("empDob").value = emp.dob || "";
-      document.getElementById("empPhone").value = emp.phone || "";
-      document.getElementById("empEmail").value = emp.email || "";
-      document.getElementById("empAddress").value = emp.address || "";
-      document.getElementById("empDept").value = emp.dept;
-      document.getElementById("empRole").value = emp.role;
-      document.getElementById("empJoinDate").value = emp.joinDate || "";
-      document.getElementById("empContract").value = emp.contract || "Chính thức";
-      document.getElementById("empSalary").value = emp.salary;
-      document.getElementById("empAllowance").value = emp.allowance || 0;
-      document.getElementById("empLeaveDays").value = emp.leaveDays ?? 12;
-      document.getElementById("empStatus").value = emp.status;
-      document.getElementById("empNote").value = emp.note || "";
-      openModal(true);
-    };
-
-    window.deleteEmployee = function (id) {
-      const emp = employees.find((e) => e.id === id);
-      if (!emp) return;
-      if (confirm(`Bạn có chắc muốn xóa nhân viên "${emp.name}"?`)) {
-        employees = employees.filter((e) => e.id !== id);
-        saveEmployees();
-        renderTable();
-      }
-    };
-
-    // Xu ly luu form khi them moi hoac cap nhat nhan vien
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const id = document.getElementById("empId").value;
-      const data = {
-        id: id || String(Date.now()),
-        code: document.getElementById("empCode").value.trim(),
-        name: document.getElementById("empName").value.trim(),
-        gender: document.getElementById("empGender").value,
-        dob: document.getElementById("empDob").value,
-        phone: document.getElementById("empPhone").value.trim(),
-        email: document.getElementById("empEmail").value.trim(),
-        address: document.getElementById("empAddress").value.trim(),
-        dept: document.getElementById("empDept").value,
-        role: document.getElementById("empRole").value.trim(),
-        joinDate: document.getElementById("empJoinDate").value,
-        contract: document.getElementById("empContract").value,
-        salary: Number(document.getElementById("empSalary").value),
-        allowance: Number(document.getElementById("empAllowance").value || 0),
-        leaveDays: Number(document.getElementById("empLeaveDays").value || 0),
-        status: document.getElementById("empStatus").value,
-        note: document.getElementById("empNote").value.trim()
-      };
-
-      if (id) {
-        employees = employees.map((emp) => (emp.id === id ? data : emp));
-      } else {
-        employees.unshift(data);
-      }
-
-      saveEmployees();
-      renderTable();
-      closeModal();
-    });
-
-    document.getElementById("openAddModalBtn").addEventListener("click", () => openModal(false));
-    document.getElementById("closeModalBtn").addEventListener("click", closeModal);
-    document.getElementById("cancelModalBtn").addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-
-    document.getElementById("closeDetailBtn").addEventListener("click", closeDetailModal);
-    document.getElementById("closeDetailFooterBtn").addEventListener("click", closeDetailModal);
-    document.getElementById("editFromDetailBtn").addEventListener("click", () => {
-      const id = currentDetailId;
-      closeDetailModal();
-      if (id) editEmployee(id);
-    });
-    detailModal.addEventListener("click", (e) => {
-      if (e.target === detailModal) closeDetailModal();
-    });
-
-    searchInput.addEventListener("input", renderTable);
-    deptFilter.addEventListener("change", renderTable);
-    statusFilter.addEventListener("change", renderTable);
-
-    renderTable();
-  </script>
+        <p>
+          <button type="submit">Luu thong tin</button>
+          <button type="reset">Xoa form</button>
+        </p>
+      </form>
+    </section>
+  </main>
 </body>
 </html>
